@@ -36,16 +36,16 @@ static void	do_single_rotations(t_stack **a, t_stack **b, t_stack *node)
 	if (*a != node)
 	{
 		if (node->above_median)
-			ra(a, 1);
+			ra(a);
 		else
-			rra(a, 1);
+			rra(a);
 	}
 	if (node->target_node && *b != node->target_node)
 	{
 		if (node->target_node->above_median)
-			rb(b, 1);
+			rb(b);
 		else
-			rrb(b, 1);
+			rrb(b);
 	}
 }
 
@@ -61,13 +61,13 @@ static void	do_rotation_step(t_stack **a, t_stack **b, t_stack *node)
 		&& node->target_node->above_median
 		&& *a != node
 		&& *b != node->target_node)
-		rr(a, b, 1);
+		rr(a, b);
 	else if (node->target_node
 		&& !node->above_median
 		&& !node->target_node->above_median
 		&& *a != node
 		&& *b != node->target_node)
-		rrr(a, b, 1);
+		rrr(a, b);
 	else
 		do_single_rotations(a, b, node);
 }
@@ -82,8 +82,6 @@ static void	bring_nodes_to_top(t_stack **a, t_stack **b, t_stack *node)
 		return ;
 	while ((*a) != node || (node->target_node && *b != node->target_node))
 	{
-		set_current_position(*a);
-		set_current_position(*b);
 		do_rotation_step(a, b, node);
 	}
 }
@@ -102,5 +100,5 @@ void	move_a_to_b(t_stack **a, t_stack **b)
 	if (!node)
 		return ;
 	bring_nodes_to_top(a, b, node);
-	pb(a, b, 1);
+	pb(b, a);
 }

@@ -2,72 +2,78 @@ NAME        = push_swap
 BONUS_NAME  = checker
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -Wall -Wextra -Werror -g
 INCLUDES    = -Iincludes -Ilibft
+RM          = rm -f
+RM_DIR      = rm -rf
 
 LIBFT_DIR   = libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 
-OBJDIR      = objs
-
-COMMON_SRCS = \
-	utils/stack_init.c \
-	utils/stack_split.c \
-	utils/stack_split_utils.c \
-	utils/parse_helpers.c \
-	utils/stack_utils.c \
-	utils/stack_ops.c
-
-SRCS = \
-	src/main.c \
-	src/cmd_push.c \
-	src/cmd_swap.c \
-	src/cmd_rotate.c \
-	src/cmd_rev_rotate.c \
-	src/turk_algo.c \
-	src/turk_calc_setters.c \
-	src/turk_calc_targets.c \
-	src/turk_calc_costs.c \
-	src/turk_moves.c \
-	src/turk_finish.c \
-	src/turk_utils.c \
-	src/turk_sort_utils.c \
-	$(COMMON_SRCS)
+# --- Source Files (with full paths) ---
+PS_SRCS = \
+    src/main.c \
+    src/ops/swap_ops.c \
+    src/ops/push_ops.c \
+    src/ops/rotate_ops.c \
+    src/ops/rev_rotate_ops.c \
+    src/turk_algo.c \
+    src/turk_calc_costs.c \
+    src/turk_calc_setters.c \
+    src/turk_calc_targets.c \
+    src/turk_moves.c \
+    src/turk_sort_utils.c \
+    src/turk_finish.c \
+    src/stack_utils.c \
+    utils/stack_init.c \
+    src/stack_ops.c \
+    src/parsing.c
 
 BONUS_SRCS = \
-	bonus/checker_main.c \
-	bonus/checker_ops.c \
-	bonus/checker_stack_ops.c \
-	$(COMMON_SRCS)
+	bonus/checker/checker_main.c \
+	src/ops/swap_ops.c \
+	src/ops/push_ops.c \
+	src/ops/rotate_ops.c \
+	src/ops/rev_rotate_ops.c \
+	src/stack_utils.c \
+	utils/stack_init.c \
+	src/stack_ops.c \
+	src/parsing.c
 
-OBJS        = $(SRCS:%.c=$(OBJDIR)/%.o)
-BONUS_OBJS  = $(BONUS_SRCS:%.c=$(OBJDIR)/%.o)
+# --- Objects ---
+OBJ_DIR      = objs
+PS_OBJS      = $(patsubst %.c,$(OBJ_DIR)/%.o,$(PS_SRCS))
+BONUS_OBJS   = $(patsubst %.c,$(OBJ_DIR)/%.o,$(BONUS_SRCS))
 
+# --- Rules ---
 .PHONY: all bonus clean fclean re
 
 all: $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
-
-$(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
-
 bonus: $(BONUS_NAME)
 
-$(BONUS_NAME): $(LIBFT) $(BONUS_OBJS)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR)
 
-$(OBJDIR)/%.o: %.c
+$(NAME): $(PS_OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(PS_OBJS) $(LIBFT) -o $(NAME)
+	@echo "push_swap compiled!"
+
+$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
+	@echo "checker compiled!"
+
+# Rule to compile .c files into .o files, creating subdirs in objs
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -rf $(OBJDIR)
-	$(MAKE) -C $(LIBFT_DIR) clean
+	@$(RM_DIR) $(OBJ_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	rm -f $(NAME) $(BONUS_NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(RM) $(NAME) $(BONUS_NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all

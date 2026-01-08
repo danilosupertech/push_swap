@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   turk_algo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/07 00:00:00 by danicort         ###   ########.fr       */
+/*   Updated: 2026/01/08 09:45:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 static void	push_two_to_b(t_stack **a, t_stack **b)
 {
 	if (stack_len(*a) > 3)
-		pb(b, a);
+		pb(a, b, 1);
 	if (stack_len(*a) > 3)
-		pb(b, a);
+		pb(a, b, 1);
 }
 
 /*

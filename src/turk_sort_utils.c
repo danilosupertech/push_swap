@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   turk_sort_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/07 00:00:00 by danicort         ###   ########.fr       */
+/*   Updated: 2026/01/08 09:45:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ void	sort_three(t_stack **a)
 	len = stack_len(*a);
 	if (len == 2)
 	{
-		sa(a);
+		sa(a, 1);
 		return ;
 	}
 	if (len != 3)
 		return ;
 	max_node = find_max(*a);
 	if (max_node == *a)
-		ra(a);
+		ra(a, 1);
 	else if (max_node == (*a)->next)
-		rra(a);
+		rra(a, 1);
 	if ((*a)->value > (*a)->next->value)
-		sa(a);
+		sa(a, 1);
 }
 
 /*
@@ -59,11 +59,11 @@ void	min_on_top(t_stack **a)
 	moves = min->index;
 	if (moves <= len / 2)
 		while (moves--)
-			ra(a);
+			ra(a, 1);
 	else
 	{
 		moves = len - moves;
 		while (moves--)
-			rra(a);
+			rra(a, 1);
 	}
 }
