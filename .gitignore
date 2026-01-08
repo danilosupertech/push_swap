@@ -1,0 +1,10 @@
+push_swap
+checker
+
+objs/
+
+libft/libft.a
+
+*.o
+*.a
+*.dSYM/
