@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../libft/libft.h"
 
 /*
 ** Input to Stack Conversion
@@ -85,7 +84,7 @@ void	init_stack_a(t_stack **a, char **argv)
 	i = 0;
 	while (argv[i])
 	{
-		split = split_ws(argv[i]);
+		split = ft_split(argv[i], ' ');
 		if (!split)
 			error_exit(a, NULL);
 		if (!split[0])

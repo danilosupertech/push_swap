@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/11 11:01:27 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/11 11:14:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ t_stack	*find_min(t_stack *stack);
 t_stack	*find_max(t_stack *stack);
 bool	is_sorted(t_stack *stack);
 
-/* String parsing (split) */
-char	**split_ws(const char *s);
 void	free_split(char **arr);
-int		is_space(char c);
-int		count_words(const char *s);
-void	free_arr_on_error(char **arr, int j);
 
 #endif
