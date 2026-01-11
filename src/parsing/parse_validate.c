@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_ops.c                                        :+:      :+:    :+:   */
+/*   parse_validate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,6 +12,26 @@
 
 #include "push_swap.h"
 
+/*
+** Input Validation
+**
+** Validates input tokens to ensure they represent valid integers and
+** detects duplicates before adding to the stack.
+**
+** - is_valid_int_token: Checks if a string is a valid integer within range
+** - check_duplicate: Searches stack for duplicate values
+**
+** These functions prevent invalid input from causing errors and ensure
+** the stack contains only unique, valid integers.
+*/
+
+/*
+** Validates if a string represents a valid integer within INT_MIN/INT_MAX.
+** Accepts optional leading '+' or '-' sign.
+**
+** @param s: String to validate
+** @return: true if valid integer, false otherwise
+*/
 bool	is_valid_int_token(const char *s)
 {
 	long	val;
@@ -36,6 +56,13 @@ bool	is_valid_int_token(const char *s)
 	return (true);
 }
 
+/*
+** Checks if a value already exists in the stack.
+**
+** @param stack: Stack to search
+** @param value: Value to check for
+** @return: true if duplicate found, false otherwise
+*/
 bool	check_duplicate(t_stack *stack, int value)
 {
 	while (stack)
@@ -45,44 +72,4 @@ bool	check_duplicate(t_stack *stack, int value)
 		stack = stack->next;
 	}
 	return (false);
-}
-
-void	append_node(t_stack **stack, int n)
-{
-	t_stack	*new;
-	t_stack	*last;
-
-	new = (t_stack *)malloc(sizeof(t_stack));
-	if (!new)
-		return ;
-	new->value = n;
-	new->index = 0;
-	new->push_cost = 0;
-	new->above_median = false;
-	new->cheapest = false;
-	new->target_node = NULL;
-	new->next = NULL;
-	new->prev = NULL;
-	if (!*stack)
-	{
-		*stack = new;
-		return ;
-	}
-	last = stack_last(*stack);
-	last->next = new;
-	new->prev = last;
-}
-
-void	free_stack(t_stack **stack)
-{
-	t_stack	*tmp;
-
-	if (!stack || !*stack)
-		return ;
-	while (*stack)
-	{
-		tmp = (*stack)->next;
-		free(*stack);
-		*stack = tmp;
-	}
 }

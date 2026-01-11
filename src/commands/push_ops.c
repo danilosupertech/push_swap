@@ -13,9 +13,24 @@
 #include "push_swap.h"
 
 /*
- * Pega o primeiro elemento do topo da stack `src` e o coloca no topo
- * da stack `dst`. Não faz nada se `src` estiver vazia.
- */
+** Push Operations
+**
+** Implements the pa and pb commands that move elements between stacks.
+** These are critical operations in the push_swap algorithm.
+**
+** - pa: push a - take the first element from b and put it on top of a
+** - pb: push b - take the first element from a and put it on top of b
+**
+** These operations are O(1) and form the backbone of stack manipulation.
+*/
+
+/*
+** Moves the top element from src stack to dst stack.
+** Does nothing if src is empty.
+**
+** @param dst: Destination stack
+** @param src: Source stack
+*/
 static void	push(t_stack **dst, t_stack **src)
 {
 	t_stack	*node_to_push;
@@ -41,9 +56,12 @@ static void	push(t_stack **dst, t_stack **src)
 }
 
 /*
- * Pega o primeiro elemento do topo da stack b e o coloca no topo da stack a.
- * Imprime "pa" na saída padrão.
- */
+** Pushes the top element from b to a.
+**
+** @param a: Pointer to stack a (destination)
+** @param b: Pointer to stack b (source)
+** @param print: If 1, prints "pa" to stdout
+*/
 void	pa(t_stack **a, t_stack **b, int print)
 {
 	push(a, b);
@@ -52,9 +70,12 @@ void	pa(t_stack **a, t_stack **b, int print)
 }
 
 /*
- * Pega o primeiro elemento do topo da stack a e o coloca no topo da stack b.
- * Imprime "pb" na saída padrão.
- */
+** Pushes the top element from a to b.
+**
+** @param a: Pointer to stack a (source)
+** @param b: Pointer to stack b (destination)
+** @param print: If 1, prints "pb" to stdout
+*/
 void	pb(t_stack **a, t_stack **b, int print)
 {
 	push(b, a);

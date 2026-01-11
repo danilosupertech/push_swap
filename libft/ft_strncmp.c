@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/07 00:00:00 by danicort         ###   ########.fr       */
+/*   Updated: 2026/01/10 11:01:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-** Compara até `n` caracteres de `s1` e `s2`.
-** Retorna <0, 0 ou >0 se `s1` for, respectivamente, menor, igual
-** ou maior que `s2` (comparação lexicográfica).
+** Compares up to `n` characters of `s1` and `s2`.
+** Returns <0, 0 or >0 if `s1` is respectively less than, equal to,
+** or greater than `s2` (lexicographic comparison).
 */
+
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/07 00:00:00 by danicort         ###   ########.fr       */
+/*   Updated: 2026/01/10 11:01:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 #include <limits.h>
 
 /*
- * Retorna valor saturado em overflow conforme o sinal.
- * static porque é helper interno do ft_atol().
- */
+** Returns saturated value on overflow according to sign.
+** Static helper function internal to ft_atol().
+*/
+
 static long	overflow_ret(int sign)
 {
 	if (sign < 0)
@@ -26,9 +27,10 @@ static long	overflow_ret(int sign)
 }
 
 /*
- * Lê um sinal opcional (+/-) e avança o ponteiro.
- * static porque é helper interno do ft_atol().
- */
+** Reads optional sign (+/-) and advances the pointer.
+** Static helper function internal to ft_atol().
+*/
+
 static int	parse_sign(const char **s)
 {
 	int	sign;
@@ -43,7 +45,10 @@ static int	parse_sign(const char **s)
 	return (sign);
 }
 
-/* Converte string numérica para long, saturando em overflow. */
+/*
+** Converts numeric string to long, saturating on overflow.
+*/
+
 long	ft_atol(const char *s)
 {
 	unsigned long	res;

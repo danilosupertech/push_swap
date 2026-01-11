@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/08 09:47:57 by marvin           ###   ########.fr       */
+/*   Updated: 2026/01/11 11:01:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define PUSH_SWAP_H
 
 # include "libft.h"
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-# include <limits.h>
 
 typedef struct s_stack
 {
@@ -53,6 +49,9 @@ void	init_nodes_a(t_stack *a, t_stack *b);
 void	init_nodes_b(t_stack *a, t_stack *b);
 void	move_a_to_b(t_stack **a, t_stack **b);
 void	move_b_to_a(t_stack **a, t_stack **b);
+void	bring_nodes_to_top(t_stack **a, t_stack **b, t_stack *node);
+void	do_rotation_step(t_stack **a, t_stack **b, t_stack *node);
+void	do_single_rotations(t_stack **a, t_stack **b, t_stack *node);
 t_stack	*get_cheapest(t_stack *stack);
 
 /* Turk algorithm - cost/target calculation */
@@ -75,11 +74,10 @@ void	append_node(t_stack **stack, int n);
 
 /* Stack utils */
 int		stack_len(t_stack *stack);
-t_stack	*stack_last(t_stack *stack);
+t_stack	*find_last(t_stack *stack);
 t_stack	*find_min(t_stack *stack);
 t_stack	*find_max(t_stack *stack);
 bool	is_sorted(t_stack *stack);
-int		max_int(int a, int b);
 
 /* String parsing (split) */
 char	**split_ws(const char *s);

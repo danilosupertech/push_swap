@@ -13,32 +13,40 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 # --- Source Files (with full paths) ---
 PS_SRCS = \
     src/main.c \
-    src/ops/swap_ops.c \
-    src/ops/push_ops.c \
-    src/ops/rotate_ops.c \
-    src/ops/rev_rotate_ops.c \
-    src/turk_algo.c \
-    src/turk_calc_costs.c \
-    src/turk_calc_setters.c \
-    src/turk_calc_targets.c \
-    src/turk_moves.c \
-    src/turk_sort_utils.c \
-    src/turk_finish.c \
-    src/stack_utils.c \
-    utils/stack_init.c \
-    src/stack_ops.c \
-    src/parsing.c
+    src/commands/swap_ops.c \
+    src/commands/push_ops.c \
+    src/commands/rotate_ops.c \
+    src/commands/rev_rotate_ops.c \
+    src/algorithm/turk_sort.c \
+    src/algorithm/small_cases.c \
+    src/algorithm/final_rotation.c \
+    src/algorithm/init_nodes.c \
+    src/algorithm/find_targets.c \
+    src/algorithm/calc_costs.c \
+    src/algorithm/execute_moves.c \
+    src/algorithm/rotation_moves.c \
+	src/stack/stack_nav.c \
+	src/stack/stack_order.c \
+	src/stack/stack_ops.c \
+    src/parsing/input_to_stack.c \
+    src/parsing/parse_split.c \
+    src/parsing/parse_split_free.c \
+    src/parsing/parse_validate.c
 
 BONUS_SRCS = \
 	bonus/checker/checker_main.c \
-	src/ops/swap_ops.c \
-	src/ops/push_ops.c \
-	src/ops/rotate_ops.c \
-	src/ops/rev_rotate_ops.c \
-	src/stack_utils.c \
-	utils/stack_init.c \
-	src/stack_ops.c \
-	src/parsing.c
+	bonus/checker/checker_ops.c \
+	src/commands/swap_ops.c \
+	src/commands/push_ops.c \
+	src/commands/rotate_ops.c \
+	src/commands/rev_rotate_ops.c \
+	src/stack/stack_nav.c \
+	src/stack/stack_order.c \
+	src/stack/stack_ops.c \
+	src/parsing/input_to_stack.c \
+	src/parsing/parse_split.c \
+	src/parsing/parse_split_free.c \
+	src/parsing/parse_validate.c
 
 # --- Objects ---
 OBJ_DIR      = objs
@@ -50,7 +58,7 @@ BONUS_OBJS   = $(patsubst %.c,$(OBJ_DIR)/%.o,$(BONUS_SRCS))
 
 all: $(NAME)
 
-bonus: $(BONUS_NAME)
+bonus: all $(BONUS_NAME)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)

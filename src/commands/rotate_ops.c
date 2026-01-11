@@ -13,9 +13,24 @@
 #include "push_swap.h"
 
 /*
- * Desloca para cima todos os elementos de uma stack por 1.
- * O primeiro elemento se torna o último.
- */
+** Rotate Operations
+**
+** Implements ra, rb, and rr commands that rotate stacks upward.
+** The first element becomes the last.
+**
+** - ra: rotate a - shift all elements up by 1 (first → last)
+** - rb: rotate b - shift all elements up by 1 (first → last)  
+** - rr: rotate both - ra and rb at the same time
+**
+** These operations are O(1) and essential for positioning elements.
+*/
+
+/*
+** Rotates stack upward: first element becomes last.
+** Does nothing if stack has fewer than 2 elements.
+**
+** @param stack: Pointer to the stack to rotate
+*/
 static void	rotate(t_stack **stack)
 {
 	t_stack	*first;
@@ -24,7 +39,7 @@ static void	rotate(t_stack **stack)
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
 	first = *stack;
-	last = stack_last(*stack);
+	last = find_last(*stack);
 	*stack = first->next;
 	(*stack)->prev = NULL;
 	first->next = NULL;
@@ -33,9 +48,11 @@ static void	rotate(t_stack **stack)
 }
 
 /*
- * Desloca para cima todos os elementos da stack a por 1.
- * Imprime "ra" na saída padrão.
- */
+** Rotates stack a upward by 1.
+**
+** @param a: Pointer to stack a
+** @param print: If 1, prints "ra" to stdout
+*/
 void	ra(t_stack **a, int print)
 {
 	rotate(a);
@@ -44,9 +61,11 @@ void	ra(t_stack **a, int print)
 }
 
 /*
- * Desloca para cima todos os elementos da stack b por 1.
- * Imprime "rb" na saída padrão.
- */
+** Rotates stack b upward by 1.
+**
+** @param b: Pointer to stack b
+** @param print: If 1, prints "rb" to stdout
+*/
 void	rb(t_stack **b, int print)
 {
 	rotate(b);
@@ -55,9 +74,12 @@ void	rb(t_stack **b, int print)
 }
 
 /*
- * ra e rb ao mesmo tempo.
- * Imprime "rr" na saída padrão.
- */
+** Performs ra and rb simultaneously (rotates both stacks).
+**
+** @param a: Pointer to stack a
+** @param b: Pointer to stack b
+** @param print: If 1, prints "rr" to stdout
+*/
 void	rr(t_stack **a, t_stack **b, int print)
 {
 	rotate(a);

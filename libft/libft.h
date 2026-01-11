@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
+# include <limits.h>
 
 /* Basic libft helpers used by push_swap */
 size_t	ft_strlen(const char *s);

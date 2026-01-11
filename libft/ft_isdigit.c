@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/07 00:00:00 by danicort         ###   ########.fr       */
+/*   Updated: 2026/01/10 11:01:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-** Retorna não-zero se `c` for um dígito decimal.
+** Returns non-zero if `c` is a decimal digit.
 */
+
 int	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');

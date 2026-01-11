@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/07 00:00:00 by danicort         ###   ########.fr       */
+/*   Updated: 2026/01/10 11:01:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/*
+** Sets the first n bytes of memory area s to zero.
+*/
 
 void	ft_bzero(void *s, size_t n)
 {

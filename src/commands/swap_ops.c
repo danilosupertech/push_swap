@@ -13,9 +13,26 @@
 #include "push_swap.h"
 
 /*
- * Troca os 2 primeiros elementos no topo de uma stack.
- * Não faz nada se houver 0 ou 1 elementos.
- */
+** Swap Operations
+**
+** Implements the sa, sb, and ss commands that swap the first two elements
+** of a stack. This is one of the fundamental operations in the push_swap
+** algorithm.
+**
+** - sa: swap a - swap the first 2 elements of stack a
+** - sb: swap b - swap the first 2 elements of stack b  
+** - ss: swap both - sa and sb at the same time
+**
+** These operations are O(1) and crucial for small adjustments during sorting.
+*/
+
+/*
+** Swaps the top two elements of a stack.
+** Does nothing if stack has fewer than 2 elements.
+**
+** @param stack: Pointer to the stack to swap
+*/
+
 static void	swap(t_stack **stack)
 {
 	t_stack	*first;
@@ -35,9 +52,11 @@ static void	swap(t_stack **stack)
 }
 
 /*
- * Troca os 2 primeiros elementos no topo da stack a.
- * Imprime "sa" na saída padrão.
- */
+** Swaps the first two elements of stack a.
+**
+** @param a: Pointer to stack a
+** @param print: If 1, prints "sa" to stdout
+*/
 void	sa(t_stack **a, int print)
 {
 	swap(a);
@@ -46,9 +65,11 @@ void	sa(t_stack **a, int print)
 }
 
 /*
- * Troca os 2 primeiros elementos no topo da stack b.
- * Imprime "sb" na saída padrão.
- */
+** Swaps the first two elements of stack b.
+**
+** @param b: Pointer to stack b
+** @param print: If 1, prints "sb" to stdout
+*/
 void	sb(t_stack **b, int print)
 {
 	swap(b);
@@ -57,9 +78,12 @@ void	sb(t_stack **b, int print)
 }
 
 /*
- * sa e sb ao mesmo tempo.
- * Imprime "ss" na saída padrão.
- */
+** Performs sa and sb simultaneously (swaps both stacks).
+**
+** @param a: Pointer to stack a
+** @param b: Pointer to stack b
+** @param print: If 1, prints "ss" to stdout
+*/
 void	ss(t_stack **a, t_stack **b, int print)
 {
 	swap(a);

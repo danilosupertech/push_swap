@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danicort <danicort@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 00:00:00 by danicort          #+#    #+#             */
-/*   Updated: 2026/01/07 00:00:00 by danicort         ###   ########.fr       */
+/*   Updated: 2026/01/10 11:01:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-** Aloca e retorna uma nova string que é duplicata de `s1`.
-** Retorna NULL em caso de falha de alocação.
+** Allocates and returns a new string that is a duplicate of `s1`.
+** Returns NULL on allocation failure.
 */
+
 char	*ft_strdup(const char *s1)
 {
 	size_t	len;

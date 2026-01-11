@@ -13,9 +13,24 @@
 #include "push_swap.h"
 
 /*
- * Desloca para baixo todos os elementos de uma stack por 1.
- * O último elemento se torna o primeiro.
- */
+** Reverse Rotate Operations
+**
+** Implements rra, rrb, and rrr commands that rotate stacks downward.
+** The last element becomes the first.
+**
+** - rra: reverse rotate a - shift all elements down by 1 (last → first)
+** - rrb: reverse rotate b - shift all elements down by 1 (last → first)
+** - rrr: reverse rotate both - rra and rrb at the same time
+**
+** These operations are O(1) and complement regular rotations.
+*/
+
+/*
+** Rotates stack downward: last element becomes first.
+** Does nothing if stack has fewer than 2 elements.
+**
+** @param stack: Pointer to the stack to reverse rotate
+*/
 static void	rev_rotate(t_stack **stack)
 {
 	t_stack	*last;
@@ -23,7 +38,7 @@ static void	rev_rotate(t_stack **stack)
 
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	last = stack_last(*stack);
+	last = find_last(*stack);
 	second_last = last->prev;
 	second_last->next = NULL;
 	last->prev = NULL;
@@ -33,9 +48,11 @@ static void	rev_rotate(t_stack **stack)
 }
 
 /*
- * Desloca para baixo todos os elementos da stack a por 1.
- * Imprime "rra" na saída padrão.
- */
+** Reverse rotates stack a downward by 1.
+**
+** @param a: Pointer to stack a
+** @param print: If 1, prints "rra" to stdout
+*/
 void	rra(t_stack **a, int print)
 {
 	rev_rotate(a);
@@ -44,9 +61,11 @@ void	rra(t_stack **a, int print)
 }
 
 /*
- * Desloca para baixo todos os elementos da stack b por 1.
- * Imprime "rrb" na saída padrão.
- */
+** Reverse rotates stack b downward by 1.
+**
+** @param b: Pointer to stack b
+** @param print: If 1, prints "rrb" to stdout
+*/
 void	rrb(t_stack **b, int print)
 {
 	rev_rotate(b);
@@ -55,9 +74,12 @@ void	rrb(t_stack **b, int print)
 }
 
 /*
- * rra e rrb ao mesmo tempo.
- * Imprime "rrr" na saída padrão.
- */
+** Performs rra and rrb simultaneously (reverse rotates both stacks).
+**
+** @param a: Pointer to stack a
+** @param b: Pointer to stack b
+** @param print: If 1, prints "rrr" to stdout
+*/
 void	rrr(t_stack **a, t_stack **b, int print)
 {
 	rev_rotate(a);
