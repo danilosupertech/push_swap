@@ -6,7 +6,7 @@
 
 **push_swap** is a sorting algorithm project that sorts integers using two stacks and a limited set of operations. The goal is to produce the shortest sequence of operations to sort stack A in ascending order while keeping stack B empty.
 
-This implementation uses the **Turk algorithm**, a cost-based greedy optimization that calculates the most efficient move sequence by analyzing the cost of each element movement.
+This implementation uses the **Turk algorithm**, a cost-based greedy strategy that picks the cheapest move at each step by computing rotation and push costs.
 
 ## Requirements
 
@@ -26,7 +26,7 @@ make
 make bonus
 ```
 
-### Both
+### Build both (main + bonus)
 ```bash
 make && make bonus
 ```
@@ -105,11 +105,12 @@ push_swap/
 │   │   ├── init_nodes.c    # Initialize node metadata
 │   │   ├── find_targets.c  # Find target positions
 │   │   ├── calc_costs.c    # Calculate movement costs
-│   │   └── execute_moves.c # Execute optimal moves
+│   │   ├── execute_moves.c # Execute optimal moves
+│   │   └── rotation_moves.c # Combined rotations helpers
 │   ├── parsing/            # Input validation and parsing
 │   │   ├── input_to_stack.c # Main parsing orchestration
-│   │   ├── parse_split.c   # String tokenization
-│   │   └── parse_validate.c # Integer validation
+│   │   ├── parse_validate.c # Integer validation
+│   │   └── parse_split_free.c # Free helper for split arrays
 │   └── stack/              # Stack utilities
 │       ├── stack_nav.c     # Navigation (length, find last)
 │       ├── stack_order.c   # Order analysis (sorted, min, max)
@@ -119,7 +120,8 @@ push_swap/
 │   └── checker_ops.c       # Operation parser and executor
 ├── libft/                  # Minimal libc reimplementation
 │   ├── Makefile
-│   └── ft_*.c              # String, memory, and utility functions
+│   ├── libft.h             # Public header (includes ft_split)
+│   └── ft_*.c              # String, memory, and utility functions (incl. ft_split)
 └── tests/                  # Test scripts (not submitted)
     ├── test_all.sh         # Functionality tests
     ├── test_memory.sh      # Memory leak detection
@@ -188,15 +190,16 @@ norminette .
 
 ### Stack Node
 ```c
-typedef struct s_stack {
-    long            value;              // Integer value
-    int             index;              // Position in original list
-    int             pos;                // Current position in stack
-    int             target_pos;         // Target position in other stack
-    int             cost_a;             // Cost to move from A
-    int             cost_b;             // Cost to move from B
-    int             total_cost;         // Sum of costs
-    struct s_stack  *next;              // Next node
+typedef struct s_stack
+{
+	int			value;        // Stored integer
+	int			index;        // Normalized index (0..n-1)
+	int			push_cost;    // Calculated move cost
+	bool		above_median; // Position hint (top/bottom)
+	bool		cheapest;     // Flag for chosen move
+	struct s_stack	*target_node; // Target counterpart
+	struct s_stack	*next;        // Next node
+	struct s_stack	*prev;        // Prev node
 } t_stack;
 ```
 
@@ -224,5 +227,5 @@ typedef struct s_stack {
 
 ---
 
-*Last updated: January 8, 2026*
+*Last updated: January 11, 2026*
 
