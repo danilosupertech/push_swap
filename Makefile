@@ -1,5 +1,4 @@
 NAME        = push_swap
-BONUS_NAME  = checker
 
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g
@@ -29,36 +28,17 @@ PS_SRCS = \
 	src/stack/stack_order.c \
 	src/stack/stack_ops.c \
     src/parsing/input_to_stack.c \
-    src/parsing/parse_split.c \
     src/parsing/parse_split_free.c \
     src/parsing/parse_validate.c
-
-BONUS_SRCS = \
-	bonus/checker/checker_main.c \
-	bonus/checker/checker_ops.c \
-	src/commands/swap_ops.c \
-	src/commands/push_ops.c \
-	src/commands/rotate_ops.c \
-	src/commands/rev_rotate_ops.c \
-	src/stack/stack_nav.c \
-	src/stack/stack_order.c \
-	src/stack/stack_ops.c \
-	src/parsing/input_to_stack.c \
-	src/parsing/parse_split.c \
-	src/parsing/parse_split_free.c \
-	src/parsing/parse_validate.c
 
 # --- Objects ---
 OBJ_DIR      = objs
 PS_OBJS      = $(patsubst %.c,$(OBJ_DIR)/%.o,$(PS_SRCS))
-BONUS_OBJS   = $(patsubst %.c,$(OBJ_DIR)/%.o,$(BONUS_SRCS))
 
 # --- Rules ---
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
 
 all: $(NAME)
-
-bonus: all $(BONUS_NAME)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
@@ -66,10 +46,6 @@ $(LIBFT):
 $(NAME): $(PS_OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(PS_OBJS) $(LIBFT) -o $(NAME)
 	@echo "push_swap compiled!"
-
-$(BONUS_NAME): $(BONUS_OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
-	@echo "checker compiled!"
 
 # Rule to compile .c files into .o files, creating subdirs in objs
 $(OBJ_DIR)/%.o: %.c

@@ -91,6 +91,37 @@ static char	**free_split(char **split, int j)
 }
 
 /*
+** Fills the split array by iterating through the string and extracting words.
+**
+** @param split: Array to fill
+** @param s: String to split (pointer will be modified)
+** @param c: Delimiter character
+** @return: 0 on success, -1 on allocation failure
+*/
+static int	fill_split(char **split, const char **s, char c)
+{
+	int	j;
+
+	j = 0;
+	while (**s)
+	{
+		if (**s != c)
+		{
+			split[j] = ft_substr(*s, 0, word_length(*s, c));
+			if (!split[j])
+				return (-1);
+			j++;
+			while (**s && **s != c)
+				(*s)++;
+		}
+		else
+			(*s)++;
+	}
+	split[j] = NULL;
+	return (0);
+}
+
+/*
 ** Allocates and fills an array of strings by splitting s at each delimiter c.
 ** Result is NULL-terminated array.
 **
@@ -102,8 +133,6 @@ char	**ft_split(const char *s, char c)
 {
 	char	**split;
 	int		word_count;
-	int		i;
-	int		j;
 
 	if (!s)
 		return (NULL);
@@ -111,22 +140,7 @@ char	**ft_split(const char *s, char c)
 	split = (char **)malloc((word_count + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (*s)
-	{
-		if (*s != c)
-		{
-			split[j] = ft_substr(s, 0, word_length(s, c));
-			if (!split[j])
-				return (free_split(split, j));
-			j++;
-			while (*s && *s != c)
-				s++;
-		}
-		else
-			s++;
-	}
-	split[j] = NULL;
+	if (fill_split(split, &s, c) == -1)
+		return (free_split(split, word_count));
 	return (split);
 }

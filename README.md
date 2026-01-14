@@ -21,16 +21,6 @@ This implementation uses the **Turk algorithm**, a cost-based greedy strategy th
 make
 ```
 
-### Checker (bonus)
-```bash
-make bonus
-```
-
-### Build both (main + bonus)
-```bash
-make && make bonus
-```
-
 ### Clean
 ```bash
 make clean      # Remove object files
@@ -46,16 +36,6 @@ make re         # Full rebuild
 ./push_swap "3 2 1"
 ./push_swap 42 -5 100 0
 ```
-
-### With checker (bonus)
-```bash
-./push_swap 3 2 1 | ./checker 3 2 1
-```
-
-Expected output:
-- If operations are correct: `OK`
-- If operations don't sort properly: `KO`
-- If input is invalid: `Error`
 
 ## Allowed Operations
 
@@ -115,9 +95,6 @@ push_swap/
 │       ├── stack_nav.c     # Navigation (length, find last)
 │       ├── stack_order.c   # Order analysis (sorted, min, max)
 │       └── stack_ops.c     # Memory management (append, free)
-├── bonus/checker/          # Checker program (bonus)
-│   ├── checker_main.c      # Entry point
-│   └── checker_ops.c       # Operation parser and executor
 ├── libft/                  # Minimal libc reimplementation
 │   ├── Makefile
 │   ├── libft.h             # Public header (includes ft_split)
