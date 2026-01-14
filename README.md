@@ -95,14 +95,10 @@ push_swap/
 │       ├── stack_nav.c     # Navigation (length, find last)
 │       ├── stack_order.c   # Order analysis (sorted, min, max)
 │       └── stack_ops.c     # Memory management (append, free)
-├── libft/                  # Minimal libc reimplementation
-│   ├── Makefile
-│   ├── libft.h             # Public header (includes ft_split)
-│   └── ft_*.c              # String, memory, and utility functions (incl. ft_split)
-└── tests/                  # Test scripts (not submitted)
-    ├── test_all.sh         # Functionality tests
-    ├── test_memory.sh      # Memory leak detection
-    └── test_performance.sh # Performance benchmarks
+└── libft/                  # Minimal libc reimplementation
+    ├── Makefile
+    ├── libft.h             # Public header (includes ft_split)
+    └── ft_*.c              # String, memory, and utility functions (incl. ft_split)
 ```
 
 ## Algorithm Details
@@ -127,27 +123,58 @@ Expected results for typical inputs:
 - **100 numbers**: 500-600 operations
 - **500 numbers**: 4900-5200 operations
 
-## Testing
+## Testing Examples
 
-### Functionality test
+### Basic functionality
 ```bash
-chmod +x tests/test_all.sh
-./tests/test_all.sh
+# Test with simple input
+./push_swap 3 2 1
+# Output: sa, ra (or similar short sequence)
+
+# Test with already sorted stack
+./push_swap 1 2 3
+# Output: (empty - no operations needed)
+
+# Test with reverse sorted
+./push_swap 5 4 3 2 1
 ```
 
-### Performance test
+### Count operations
 ```bash
-chmod +x tests/test_performance.sh
-./tests/test_performance.sh
+# Small set (3 numbers) - should use ≤ 3 operations
+./push_swap 2 1 3 | wc -l
+
+# Medium set (5 numbers) - should use ≤ 12 operations
+./push_swap 5 4 3 2 1 | wc -l
+
+# Large set (100 numbers) - should use < 700 operations
+ARG=$(shuf -i 1-1000 -n 100 | tr '\n' ' '); ./push_swap $ARG | wc -l
 ```
 
-### Memory test (requires valgrind)
+### Validate with checker
 ```bash
-chmod +x tests/test_memory.sh
-./tests/test_memory.sh
+# If you have checker program
+ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker $ARG
+# Expected output: OK
+
+# Test with invalid input
+./push_swap 1 2 3 2
+# Expected output: Error
 ```
 
-**Note:** Test scripts are in the `tests/` folder and are not submitted to the 42 server. They are provided for local development and validation.
+### Memory leak detection
+```bash
+# Install valgrind (Ubuntu/WSL)
+sudo apt-get install valgrind
+
+# Check for memory leaks
+valgrind --leak-check=full ./push_swap 9 0 -217 2147483647 -2147483648
+# Expected: "All heap blocks were freed -- no leaks are possible"
+
+# Test with invalid input (should still free memory)
+valgrind --leak-check=full ./push_swap 1 2 3 abc
+# Expected: Error + no leaks
+```
 
 ## Code Style
 
