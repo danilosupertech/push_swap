@@ -95,13 +95,65 @@ push_swap/
 │       ├── stack_nav.c     # Navigation (length, find last)
 │       ├── stack_order.c   # Order analysis (sorted, min, max)
 │       └── stack_ops.c     # Memory management (append, free)
-└── libft/                  # Minimal libc reimplementation
-    ├── Makefile
-    ├── libft.h             # Public header (includes ft_split)
-    └── ft_*.c              # String, memory, and utility functions (incl. ft_split)
+└── libft/                  # Custom C library
+    ├── Makefile            # Libft build configuration
+    ├── libft.h             # Libft header
+    ├── ft_atol.c           # String to long conversion
+    ├── ft_bzero.c          # Zero memory block
+    ├── ft_calloc.c         # Allocate and zero memory
+    ├── ft_isdigit.c        # Check if character is digit
+    ├── ft_putstr_fd.c      # Write string to file descriptor
+    ├── ft_split.c          # Split string by delimiter
+    ├── ft_strdup.c         # Duplicate string
+    ├── ft_strlen.c         # Calculate string length
+    ├── ft_strncmp.c        # Compare strings (n bytes)
+    └── ft_substr.c         # Extract substring
 ```
 
 ## Algorithm Details
+
+### Commands Module
+The **commands/** folder implements the 11 basic stack operations mandated by the subject:
+
+- **swap_ops.c**: Implements `sa` (swap first 2 of A), `sb` (swap first 2 of B), and `ss` (swap both)
+- **push_ops.c**: Implements `pa` (push top of B to A) and `pb` (push top of A to B)
+- **rotate_ops.c**: Implements `ra` (rotate A up), `rb` (rotate B up), and `rr` (rotate both)
+- **rev_rotate_ops.c**: Implements `rra` (rotate A down), `rrb` (rotate B down), and `rrr` (rotate both down)
+
+All operations run in **O(1) time** by only manipulating top/bottom node pointers. Each operation prints its name to stdout when executed.
+
+### Parsing Module
+The **parsing/** folder handles input validation and stack initialization:
+
+- **input_to_stack.c**: Main entry point that orchestrates parsing flow
+  - Handles both single string and multiple argument formats
+  - Calls validation and builds the initial stack A
+- **parse_validate.c**: Validates each token
+  - Checks for valid integer format (with optional +/- signs)
+  - Converts strings to integers using `ft_atol`
+  - Detects overflow beyond `int` range
+  - Checks for duplicate values
+- **parse_split_free.c**: Memory management for split strings
+  - Frees dynamically allocated string arrays after parsing
+
+If any validation fails, outputs `Error\n` to stderr and exits with status 1.
+
+### Stack Module
+The **stack/** folder provides core stack manipulation utilities:
+
+- **stack_ops.c**: Memory management
+  - `stack_new()`: Creates new stack nodes
+  - `stack_add_back()`: Appends nodes to stack end
+  - `free_stack()`: Frees all nodes in a stack
+- **stack_nav.c**: Navigation functions
+  - `stack_len()`: Returns number of nodes
+  - `find_last()`: Returns pointer to last node
+- **stack_order.c**: Analysis functions
+  - `stack_sorted()`: Checks if stack is already sorted
+  - `find_min()`: Finds node with minimum value
+  - `find_max()`: Finds node with maximum value
+
+These utilities support both doubly-linked list operations and the algorithm's decision-making process.
 
 ### Turk Algorithm
 The Turk algorithm uses a cost-based greedy approach:
@@ -120,8 +172,12 @@ The Turk algorithm uses a cost-based greedy approach:
 ### Performance
 
 Expected results for typical inputs:
-- **100 numbers**: 500-600 operations
-- **500 numbers**: 4900-5200 operations
+- **3 numbers**: ≤ 3 operations
+- **5 numbers**: ≤ 12 operations
+- **100 numbers**: < 700 operations (target: 500-600)
+- **500 numbers**: < 5500 operations (target: 4900-5200)
+
+These limits align with 42 evaluation requirements for maximum score.
 
 ## Testing Examples
 
@@ -167,13 +223,30 @@ ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker $ARG
 # Install valgrind (Ubuntu/WSL)
 sudo apt-get install valgrind
 
-# Check for memory leaks
+# Basic memory check
 valgrind --leak-check=full ./push_swap 9 0 -217 2147483647 -2147483648
 # Expected: "All heap blocks were freed -- no leaks are possible"
 
 # Test with invalid input (should still free memory)
 valgrind --leak-check=full ./push_swap 1 2 3 abc
 # Expected: Error + no leaks
+
+# Test with duplicates
+valgrind --leak-check=full ./push_swap 5 2 3 5 1
+# Expected: Error + no leaks
+
+# Test with large input
+valgrind --leak-check=full ./push_swap $(shuf -i 1-500 -n 100 | tr '\n' ' ')
+# Expected: no leaks
+
+# Detailed memory report
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./push_swap 4 2 1 3
+# Shows detailed memory allocation info
+
+# Test with empty/single argument
+valgrind --leak-check=full ./push_swap ""
+valgrind --leak-check=full ./push_swap 42
+# Expected: no operations, no leaks
 ```
 
 ## Code Style
