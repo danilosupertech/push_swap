@@ -21,7 +21,8 @@
 ** - pa: push a - take the first element from b and put it on top of a
 ** - pb: push b - take the first element from a and put it on top of b
 **
-** These operations are O(1) and form the backbone of stack manipulation.
+** These operations run in constant time O(1) by only manipulating the top
+** node pointers, regardless of stack size. They form the core of all moves.
 */
 
 /*
