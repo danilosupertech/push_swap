@@ -39,8 +39,8 @@ This project follows all 42 Norminette standards and is designed to help you:
 
 ### External Links
 - [42 Norminette Documentation](https://github.com/42School/norminette)
-- [Visualizer Tool](https://github.com/o-reo/push_swap_visualizer)
-- [Algorithm Explanation (Medium)](https://medium.com)
+- [Push Swap Visualizer](https://github.com/o-reo/push_swap_visualizer)
+- [Algorithm Complexity Analysis](https://en.wikipedia.org/wiki/Sorting_algorithm)
 
 ### Related Projects
 - `checker` - Validates push_swap output
