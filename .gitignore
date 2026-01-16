@@ -1,11 +1,36 @@
+# Executables
 push_swap
 checker
 
+# Object files
 objs/
-tests/
-
-libft/libft.a
-
 *.o
 *.a
+
+# Library
+libft/libft.a
+
+# Testing
+tests/
+test_results/
+
+# Debug
 *.dSYM/
+*.out
+vgcore.*
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+tmp/
+.cache/
+
+# System files
+Thumbs.db
